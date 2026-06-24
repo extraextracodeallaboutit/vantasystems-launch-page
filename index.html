@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VANTA SYSTEMS — BUILDING AUTONOMOUS FUTURES.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,41 +28,12 @@
       overflow-x: hidden;
     }
 
-    /* ── Ticker ── */
-    .ticker {
-      background: var(--white);
-      color: var(--black);
-      padding: 9px 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .ticker-track {
-      display: inline-flex;
-      animation: ticker 28s linear infinite;
-    }
-
-    .ticker-item {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      padding: 0 40px;
-    }
-
-    .ticker-item::after {
-      content: '✦';
-      margin-left: 40px;
-      opacity: 0.3;
-    }
-
-    @keyframes ticker {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
     /* ── Nav ── */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--black);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -71,18 +42,9 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
+    .nav-logo { height: 38px; width: auto; display: block; }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      list-style: none;
-    }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
 
     .nav-btn {
       background: transparent;
@@ -101,16 +63,12 @@
       gap: 7px;
     }
 
-    .nav-btn:hover { border-color: var(--grey); background: var(--grey-light); }
-
-    .nav-btn svg {
-      width: 8px; height: 8px;
-      transition: transform 0.2s;
-    }
-
-    .nav-item { position: relative; }
-    .nav-item.open .nav-btn svg { transform: rotate(180deg); }
+    .nav-btn:hover,
     .nav-item.open .nav-btn { border-color: var(--grey); background: var(--grey-light); }
+
+    .nav-btn svg { width: 8px; height: 8px; transition: transform 0.2s; }
+    .nav-item.open .nav-btn svg { transform: rotate(180deg); }
+    .nav-item { position: relative; }
 
     /* ── Dropdown ── */
     .dropdown {
@@ -124,7 +82,6 @@
       padding: 28px;
       z-index: 200;
     }
-
     .nav-item.open .dropdown { display: block; }
 
     .dropdown-title {
@@ -138,7 +95,6 @@
     }
 
     .field { margin-bottom: 18px; }
-
     .field label {
       display: block;
       font-size: 9px;
@@ -147,7 +103,6 @@
       color: var(--grey);
       margin-bottom: 7px;
     }
-
     .field input,
     .field textarea,
     .field select {
@@ -164,18 +119,11 @@
       transition: border-color 0.15s;
       resize: none;
     }
-
     .field input:focus,
     .field textarea:focus,
     .field select:focus { border-color: var(--grey); }
-
     .field textarea { height: 64px; }
-
-    .field select {
-      cursor: pointer;
-      appearance: none;
-    }
-
+    .field select { cursor: pointer; appearance: none; }
     .field select option { background: #111; }
 
     .submit-btn {
@@ -193,7 +141,6 @@
       margin-top: 4px;
       transition: opacity 0.15s;
     }
-
     .submit-btn:hover { opacity: 0.85; }
     .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
@@ -205,14 +152,14 @@
       color: var(--white);
       text-align: center;
       padding: 14px 0 0;
-      line-height: 1.6;
+      line-height: 1.8;
     }
 
     /* ── Hero ── */
     .hero {
-      min-height: calc(100vh - 108px);
       display: grid;
       grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 72px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -240,7 +187,6 @@
       color: var(--white);
       margin-bottom: 40px;
     }
-
     h1 span { color: var(--grey); }
 
     .hero-desc {
@@ -251,22 +197,22 @@
       margin-bottom: 56px;
     }
 
-    /* Countdown */
-    .countdown {
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 16px;
       display: flex;
-      gap: 0;
-      border: 1px solid var(--border);
-      align-self: flex-start;
+      align-items: center;
+      gap: 12px;
     }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    .cd-unit {
-      padding: 20px 28px;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
-
+    /* Countdown */
+    .countdown { display: flex; border: 1px solid var(--border); align-self: flex-start; }
+    .cd-unit { padding: 20px 28px; text-align: center; border-right: 1px solid var(--border); }
     .cd-unit:last-child { border-right: none; }
-
     .cd-num {
       display: block;
       font-size: 30px;
@@ -277,97 +223,132 @@
       line-height: 1;
       margin-bottom: 8px;
     }
+    .cd-label { font-size: 7px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--grey); }
 
-    .cd-label {
-      font-size: 7px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--grey);
-    }
-
-    /* Hero right — careers widget */
-    .hero-right {
-      padding: 80px 48px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .section-label {
-      font-size: 9px;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--grey);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* Job cards */
-    .jobs { display: flex; flex-direction: column; gap: 0; }
+    /* Careers widget */
+    .hero-right { padding: 80px 48px; display: flex; flex-direction: column; }
 
     .job-card {
       border: 1px solid var(--border);
-      border-top: none;
-      padding: 22px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.15s;
-      cursor: pointer;
+      border-radius: 4px;
+      padding: 28px;
     }
 
-    .job-card:first-child { border-top: 1px solid var(--border); }
-    .job-card:hover { background: var(--grey-light); }
-
-    .job-info {}
-
-    .job-title {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: 5px;
-      letter-spacing: 0.01em;
-    }
+    .job-title { font-size: 20px; font-weight: 500; color: var(--white); margin-bottom: 8px; }
 
     .job-meta {
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      font-size: 12px;
       color: var(--grey);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .job-meta span { margin-right: 16px; }
+    .job-meta .dot { opacity: 0.4; }
+
+    .job-pitch {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .job-bullets {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .job-bullets li {
+      font-size: 12px;
+      color: var(--grey);
+      line-height: 1.8;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .job-bullets li::before { content: '·'; color: var(--grey); flex-shrink: 0; }
 
     .job-apply {
+      display: block;
+      width: 100%;
       background: transparent;
       border: 1px solid var(--border);
       color: var(--white);
       font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.16em;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      padding: 8px 14px;
+      padding: 16px;
       cursor: pointer;
       transition: border-color 0.15s, background 0.15s;
-      white-space: nowrap;
+      text-align: center;
     }
 
-    .job-apply:hover { border-color: var(--grey); background: #222; }
+    .job-apply:hover { border-color: var(--grey); background: var(--grey-light); }
 
-    .jobs-note {
-      font-size: 10px;
+    /* ── Manifesto ── */
+    .manifesto {
+      padding: 120px 48px;
+      max-width: 820px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .manifesto-label {
+      font-size: 9px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
       color: var(--grey);
-      margin-top: 20px;
-      letter-spacing: 0.04em;
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .manifesto-label::after { content: ''; width: 40px; height: 1px; background: var(--border); }
+
+    .manifesto p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #9a9a9a;
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+
+    .manifesto p.lead {
+      font-size: 18px;
+      color: var(--white);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    /* Centerpiece */
+    .manifesto-centerpiece {
+      margin: 72px 0;
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .centerpiece-q {
+      font-size: clamp(18px, 2.4vw, 30px);
+      font-weight: 300;
+      color: var(--grey);
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .centerpiece-a {
+      font-size: clamp(22px, 3vw, 40px);
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
     /* ── Apply modal ── */
@@ -375,13 +356,12 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       z-index: 300;
       align-items: center;
       justify-content: center;
       padding: 24px;
     }
-
     .modal-overlay.open { display: flex; }
 
     .modal {
@@ -391,20 +371,19 @@
       width: 100%;
       max-width: 440px;
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-close {
       position: absolute;
       top: 16px; right: 16px;
-      background: none;
-      border: none;
+      background: none; border: none;
       color: var(--grey);
       cursor: pointer;
       font-size: 18px;
-      line-height: 1;
       padding: 4px;
     }
-
     .modal-close:hover { color: var(--white); }
 
     .modal-title {
@@ -415,7 +394,7 @@
       margin-bottom: 6px;
     }
 
-    .modal-role {
+    .modal-heading {
       font-size: 18px;
       font-weight: 400;
       color: var(--white);
@@ -430,9 +409,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 48px;
-      border-top: 1px solid var(--border);
     }
-
     .footer-l, .footer-r {
       font-size: 9px;
       letter-spacing: 0.1em;
@@ -446,35 +423,18 @@
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-left { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--border); }
       .hero-right { padding: 48px 24px; }
+      .manifesto { padding: 72px 24px; }
       .countdown { flex-wrap: wrap; }
-      .cd-unit { padding: 16px 20px; }
       footer { padding: 16px 24px; flex-direction: column; gap: 6px; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<!-- Ticker -->
-<div class="ticker">
-  <div class="ticker-track" id="ticker-track">
-    <span class="ticker-item">Vanta Systems</span>
-    <span class="ticker-item">Building Autonomous Futures</span>
-    <span class="ticker-item">Intelligence &amp; Security</span>
-    <span class="ticker-item">Coming Soon</span>
-    <span class="ticker-item">Est. 2025 — Australia</span>
-    <span class="ticker-item">Vanta Systems</span>
-    <span class="ticker-item">Building Autonomous Futures</span>
-    <span class="ticker-item">Intelligence &amp; Security</span>
-    <span class="ticker-item">Coming Soon</span>
-    <span class="ticker-item">Est. 2025 — Australia</span>
-  </div>
-</div>
-
 <!-- Nav -->
 <nav>
   <img src="2.png" alt="Vanta Systems" class="nav-logo" />
   <ul class="nav-links">
-
     <li class="nav-item" id="enquiries-item">
       <button class="nav-btn" onclick="toggle('enquiries-item')">
         Enquiries
@@ -500,14 +460,12 @@
         <div class="form-success" id="enquiry-success">Message received —<br>we will be in touch.</div>
       </div>
     </li>
-
   </ul>
 </nav>
 
 <!-- Hero -->
 <div class="hero">
 
-  <!-- Left -->
   <div class="hero-left">
     <div>
       <div class="hero-tag">Pre-Operational — Est. 2025 — Australia</div>
@@ -518,7 +476,7 @@
       </p>
     </div>
     <div>
-      <div class="section-label" style="margin-bottom:16px;">Estimated launch</div>
+      <div class="section-label">Estimated launch</div>
       <div class="countdown">
         <div class="cd-unit">
           <span class="cd-num" id="cd-days">--</span>
@@ -540,65 +498,63 @@
     </div>
   </div>
 
-  <!-- Right — Careers widget -->
   <div class="hero-right">
-    <div class="section-label">Open Positions</div>
-    <div class="jobs">
-
-      <div class="job-card">
-        <div class="job-info">
-          <div class="job-title">Intelligence Analyst</div>
-          <div class="job-meta">
-            <span>Operations</span>
-            <span>Sydney, AU</span>
-            <span>Full-time</span>
-          </div>
-        </div>
-        <button class="job-apply" onclick="openApply('Intelligence Analyst')">Apply</button>
+    <div class="section-label">Careers</div>
+    <div class="job-card">
+      <div class="job-title">General Application</div>
+      <div class="job-meta">
+        Various Positions Available <span class="dot">•</span> Sydney, AU / Remote
       </div>
-
-      <div class="job-card">
-        <div class="job-info">
-          <div class="job-title">Security Engineer</div>
-          <div class="job-meta">
-            <span>Engineering</span>
-            <span>Remote</span>
-            <span>Full-time</span>
-          </div>
-        </div>
-        <button class="job-apply" onclick="openApply('Security Engineer')">Apply</button>
-      </div>
-
-      <div class="job-card">
-        <div class="job-info">
-          <div class="job-title">Software Engineer — Platform</div>
-          <div class="job-meta">
-            <span>Engineering</span>
-            <span>Sydney, AU</span>
-            <span>Full-time</span>
-          </div>
-        </div>
-        <button class="job-apply" onclick="openApply('Software Engineer — Platform')">Apply</button>
-      </div>
-
-      <div class="job-card">
-        <div class="job-info">
-          <div class="job-title">Operations Associate</div>
-          <div class="job-meta">
-            <span>Operations</span>
-            <span>Sydney, AU</span>
-            <span>Full-time</span>
-          </div>
-        </div>
-        <button class="job-apply" onclick="openApply('Operations Associate')">Apply</button>
-      </div>
-
+      <div class="job-pitch">Submit your application and let us determine the best fit for your skills and experience.</div>
+      <ul class="job-bullets">
+        <li>Engineering, security, intelligence and operations roles available</li>
+        <li>We'll match you to the right position</li>
+        <li>Work on next-generation intelligence and automation systems</li>
+        <li>Equity and growth opportunities</li>
+      </ul>
+      <button class="job-apply" onclick="openApply('General Application')">Apply Now</button>
     </div>
-    <p class="jobs-note">Don't see your role? Submit a general application below.</p>
-    <button class="job-apply" style="margin-top:12px; align-self:flex-start;" onclick="openApply('General Application')">General Application</button>
   </div>
 
 </div>
+
+<!-- Manifesto -->
+<section class="manifesto">
+  <div class="manifesto-label">Manifesto</div>
+
+  <p class="lead">Technology should solve real problems.<br>That is the foundation of Vanta Systems.</p>
+
+  <p>We live in a world where technology is advancing faster than ever before. Artificial intelligence, automation, robotics and software are reshaping industries, economies and daily life. The organisations and individuals who adapt will gain an advantage. Those who do not risk being left behind.</p>
+
+  <p>That is why we exist.</p>
+
+  <p>Vanta Systems was founded to help turn ideas into capability. We believe technology should not be reserved for large corporations with endless resources. It should be accessible, practical and focused on delivering real outcomes.</p>
+
+  <p>Our mission is to design and develop systems that improve the way people work, create and operate. Whether through software, automation, artificial intelligence or emerging technologies, our focus remains the same. Build solutions that make a measurable difference.</p>
+
+  <p>A key fact that drives our thinking is that a significant portion of repetitive workplace tasks can now be automated through modern technology. This creates an opportunity to reduce wasted time, increase productivity and allow people to focus on higher value work.</p>
+
+  <p>That is the why behind Vanta Systems.</p>
+
+  <p>We are not interested in building technology for attention. We are interested in building technology that creates capability. Systems that solve problems. Systems that save time. Systems that scale. Systems that help people achieve more.</p>
+
+  <p>We believe innovation comes from action. Great ideas mean little without execution. Progress is made by those willing to build, test, learn and improve.</p>
+
+  <p>We value curiosity, creativity and practical thinking. We challenge assumptions and look for better ways to solve problems. We understand that technology is never finished and that every solution can be refined.</p>
+
+  <p>Our vision extends beyond software alone. We see a future where intelligent systems, automation and emerging technologies work together to improve industries, strengthen organisations and unlock new possibilities.</p>
+
+  <p>Everything we build is guided by a simple question.</p>
+
+  <div class="manifesto-centerpiece">
+    <div class="centerpiece-q">Will this create meaningful value?</div>
+    <div class="centerpiece-a">If the answer is yes,<br>we will find a way to build it.</div>
+  </div>
+
+  <p>Because technology should do more than exist.</p>
+  <p>It should create capability.</p>
+  <p>That is why Vanta Systems exists.</p>
+</section>
 
 <!-- Footer -->
 <footer>
@@ -611,7 +567,7 @@
   <div class="modal">
     <button class="modal-close" onclick="closeApply()">✕</button>
     <div class="modal-title">Apply for</div>
-    <div class="modal-role" id="modal-role-title">—</div>
+    <div class="modal-heading" id="modal-role-title">—</div>
     <form onsubmit="submitApplication(event)">
       <input type="hidden" name="role" id="modal-role-input" />
       <div class="field">
@@ -621,6 +577,19 @@
       <div class="field">
         <label>Email</label>
         <input type="email" name="email" placeholder="your@email.com" required />
+      </div>
+      <div class="field">
+        <label>Position</label>
+        <select name="position">
+          <option value="">All positions</option>
+          <option>Intelligence Analyst</option>
+          <option>Security Engineer</option>
+          <option>Software Engineer — Platform</option>
+          <option>Operations Associate</option>
+          <option>Automation Engineer</option>
+          <option>AI Research Engineer</option>
+          <option>General Application</option>
+        </select>
       </div>
       <div class="field">
         <label>Cover Note</label>
@@ -633,7 +602,6 @@
 </div>
 
 <script>
-  // Countdown
   const TARGET = new Date('2026-08-01T20:00:00Z');
   function pad(n) { return String(n).padStart(2,'0'); }
   function tick() {
@@ -647,7 +615,6 @@
   setInterval(tick, 1000);
   tick();
 
-  // Nav dropdown toggle
   function toggle(id) {
     const item = document.getElementById(id);
     const isOpen = item.classList.contains('open');
@@ -658,54 +625,35 @@
     if (!e.target.closest('.nav-item')) document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('open'));
   });
 
-  // Apply modal
   function openApply(role) {
     document.getElementById('modal-role-title').textContent = role;
     document.getElementById('modal-role-input').value = role;
+    const sel = document.querySelector('#apply-modal select[name="position"]');
+    for (let o of sel.options) { if (o.value === role) { o.selected = true; break; } }
     document.getElementById('apply-modal').classList.add('open');
   }
-  function closeApply() {
-    document.getElementById('apply-modal').classList.remove('open');
-  }
-  document.getElementById('apply-modal').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeApply();
-  });
+  function closeApply() { document.getElementById('apply-modal').classList.remove('open'); }
+  document.getElementById('apply-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeApply(); });
 
-  // Submit enquiry
   async function submitEnquiry(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.submit-btn');
     btn.textContent = 'Sending...'; btn.disabled = true;
-    const data = Object.fromEntries(new FormData(e.target));
     try {
-      const res = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        e.target.style.display = 'none';
-        document.getElementById('enquiry-success').style.display = 'block';
-      } else { btn.textContent = 'Try again'; btn.disabled = false; }
+      const res = await fetch('/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(e.target))) });
+      if (res.ok) { e.target.style.display = 'none'; document.getElementById('enquiry-success').style.display = 'block'; }
+      else { btn.textContent = 'Try again'; btn.disabled = false; }
     } catch { btn.textContent = 'Try again'; btn.disabled = false; }
   }
 
-  // Submit application
   async function submitApplication(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.submit-btn');
     btn.textContent = 'Sending...'; btn.disabled = true;
-    const data = Object.fromEntries(new FormData(e.target));
     try {
-      const res = await fetch('/api/apply', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        e.target.style.display = 'none';
-        document.getElementById('apply-success').style.display = 'block';
-      } else { btn.textContent = 'Try again'; btn.disabled = false; }
+      const res = await fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(e.target))) });
+      if (res.ok) { e.target.style.display = 'none'; document.getElementById('apply-success').style.display = 'block'; }
+      else { btn.textContent = 'Try again'; btn.disabled = false; }
     } catch { btn.textContent = 'Try again'; btn.disabled = false; }
   }
 </script>
