@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       from: 'Vanta Systems <onboarding@resend.dev>',
-      to: ['Nelson.Opeya102@schools.sa.edu.au'],
+      to: ['nelsonopeya@gmail.com'],
       subject: 'New access request — Vanta Systems',
       html: `<p>New early access request from <strong>${email}</strong></p>`,
     }),
