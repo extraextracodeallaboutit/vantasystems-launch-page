@@ -36,8 +36,8 @@ export default async function handler(req, res) {
       'Authorization': `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: 'Vanta Systems <onboarding@resend.dev>',
-      to: ['nelsonopeya@gmail.com'],
+      from: 'Vanta Systems <noreply@vantasystems.com.au>',
+      to: ['engineering@vantasystems.com.au'],
       subject: 'New access request — Vanta Systems',
       html: `<p>New early access request from <strong>${email}</strong></p>`,
     }),
