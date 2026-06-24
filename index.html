@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANTA SYSTEMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f4f2;
+      --grey: #8a8a8a;
+      --grey-light: #c8c8c8;
+      --grey-line: #e2e1df;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 0 48px;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--grey-line);
+    }
+
+    .logo {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    /* ── Main grid ── */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 72px 0 64px;
+    }
+
+    .col-left {
+      padding-right: 64px;
+      border-right: 1px solid var(--grey-line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .col-right {
+      padding-left: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ── Left: Headline ── */
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 5.5vw, 76px);
+      font-weight: 300;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      margin-bottom: 36px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--grey-light);
+    }
+
+    .body-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--grey);
+      max-width: 360px;
+    }
+
+    /* ── Left: Form ── */
+    .form-wrap {
+      margin-top: auto;
+      padding-top: 56px;
+    }
+
+    .form-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 10px;
+    }
+
+    .form-row input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: 0.02em;
+    }
+
+    .form-row input::placeholder { color: var(--grey-light); }
+
+    .form-row button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--black);
+      padding: 0;
+      flex-shrink: 0;
+      transition: color 0.15s;
+    }
+
+    .form-row button:hover { color: var(--grey); }
+
+    .form-note {
+      font-size: 9px;
+      color: var(--grey-light);
+      margin-top: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .success-note {
+      display: none;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-top: 10px;
+    }
+
+    /* ── Right: Status block ── */
+    .status-block { flex: 1; }
+
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--grey-line);
+      margin-bottom: 0;
+    }
+
+    .status-title {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+
+    .status-badge {
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--black);
+      color: var(--black);
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--grey-line);
+    }
+
+    .status-row:last-child { border-bottom: none; }
+
+    .status-row-label {
+      font-size: 12px;
+      color: var(--grey);
+      letter-spacing: 0.01em;
+    }
+
+    .status-val {
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .status-val.ok    { color: var(--black); }
+    .status-val.pend  { color: var(--grey); }
+    .status-val.lock  { color: var(--grey-light); }
+
+    /* ── Right: Countdown ── */
+    .countdown-wrap { margin-top: 32px; }
+
+    .countdown-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 16px;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--grey-line);
+    }
+
+    .cd-unit {
+      padding: 20px 12px;
+      text-align: center;
+      border-right: 1px solid var(--grey-line);
+    }
+
+    .cd-unit:last-child { border-right: none; }
+
+    .cd-num {
+      display: block;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cd-label {
+      font-size: 7px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey-light);
+    }
+
+    /* ── Footer ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-top: 1px solid var(--grey-line);
+    }
+
+    .footer-l {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--grey);
+    }
+
+    .footer-r {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--grey-light);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .page { padding: 0 24px; }
+      header { padding: 22px 0; }
+      .header-meta { gap: 16px; }
+
+      main {
+        grid-template-columns: 1fr;
+        padding: 48px 0 40px;
+        gap: 48px;
+      }
+
+      .col-left {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--grey-line);
+        padding-bottom: 48px;
+      }
+
+      .col-right { padding-left: 0; }
+
+      h1 { font-size: clamp(38px, 9vw, 56px); }
+
+      .form-wrap { padding-top: 40px; }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <header>
+    <div class="logo">Vanta Systems</div>
+    <div class="header-meta">
+      <span>Est. 2025</span>
+      <span>Australia</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left column -->
+    <div class="col-left">
+      <div>
+        <div class="eyebrow">Operational Status</div>
+        <h1>Built for environments that <em>demand</em> precision.</h1>
+        <p class="body-text">
+          Vanta Systems is a next-generation intelligence and security platform.
+          Full access is restricted pending final deployment.
+          Early access requests are currently being reviewed.
+        </p>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-label">Request Early Access</div>
+        <form class="form-row" onsubmit="handleSubmit(event)">
+          <input type="email" id="email-input" placeholder="Email address" autocomplete="off" />
+          <button type="submit">Submit</button>
+        </form>
+        <div class="form-note" id="form-note">Access is not guaranteed. Requests are reviewed manually.</div>
+        <div class="success-note" id="success-note">Request received — you will be contacted.</div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="col-right">
+      <div class="status-block">
+        <div class="status-header">
+          <span class="status-title">System Status</span>
+          <span class="status-badge">Restricted</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Infrastructure</span>
+          <span class="status-val ok">Operational</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Security Stack</span>
+          <span class="status-val ok">Deployed</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Platform</span>
+          <span class="status-val pend">Pending</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Public Access</span>
+          <span class="status-val lock">Locked</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Classification</span>
+          <span class="status-val pend">Restricted</span>
+        </div>
+      </div>
+
+      <div class="countdown-wrap">
+        <div class="countdown-label">Estimated Time to Launch</div>
+        <div class="countdown">
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-days">--</span>
+            <span class="cd-label">Days</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-hours">--</span>
+            <span class="cd-label">Hrs</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-mins">--</span>
+            <span class="cd-label">Min</span>
+          </div>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-secs">--</span>
+            <span class="cd-label">Sec</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-l">vantasystems.com.au</span>
+    <span class="footer-r">© 2025 Vanta Systems Pty Ltd. All rights reserved.</span>
+  </footer>
+
+</div>
+
+<script>
+  // Countdown — update this date
+  const TARGET = new Date('2026-08-01T20:00:00Z');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const diff = TARGET - Date.now();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+        document.getElementById(id).textContent = '00';
+      });
+      return;
+    }
+    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+  }
+
+  setInterval(tick, 1000);
+  tick();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value;
+    if (!email) return;
+
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        document.getElementById('email-input').value = '';
+        document.getElementById('form-note').style.display = 'none';
+        document.getElementById('success-note').style.display = 'block';
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>
