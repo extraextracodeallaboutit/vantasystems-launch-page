@@ -163,7 +163,72 @@
     }
 
     /* ── Hero ── */
+    .hero-wrap {
+      position: relative;
+      width: 100%;
+      min-height: calc(100vh - 72px);
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Drop hero-bg.jpg into the project folder and uncomment this to use AI image */
+    /*
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.18;
+      z-index: 0;
+    }
+    */
+
+    .hero-hud {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      padding: 20px 28px;
+    }
+    .hud-tl, .hud-tr, .hud-bl, .hud-br {
+      position: absolute;
+      font-family: 'Inter', monospace;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,239,237,0.2);
+      line-height: 1.8;
+    }
+    .hud-tl { top: 20px; left: 28px; }
+    .hud-tr { top: 20px; right: 28px; text-align: right; }
+    .hud-bl { bottom: 20px; left: 28px; }
+    .hud-br { bottom: 20px; right: 28px; text-align: right; }
+
+    .hud-corner {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: rgba(240,239,237,0.15);
+      border-style: solid;
+    }
+    .hud-corner.tl { top: 20px; left: 28px; border-width: 1px 0 0 1px; }
+    .hud-corner.tr { top: 20px; right: 28px; border-width: 1px 1px 0 0; }
+    .hud-corner.bl { bottom: 20px; left: 28px; border-width: 0 0 1px 1px; }
+    .hud-corner.br { bottom: 20px; right: 28px; border-width: 0 1px 1px 0; }
+
     .hero {
+      position: relative;
+      z-index: 2;
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: calc(100vh - 72px);
@@ -576,6 +641,20 @@
   </ul>
 </nav>
 
+<div class="hero-wrap">
+<canvas id="hero-canvas"></canvas>
+<!-- <img src="hero-bg.jpg" class="hero-bg-img" alt="" /> -->
+<div class="hero-hud">
+  <div class="hud-corner tl"></div>
+  <div class="hud-corner tr"></div>
+  <div class="hud-corner bl"></div>
+  <div class="hud-corner br"></div>
+  <div class="hud-tl">VS-001<br>Adelaide, AU</div>
+  <div class="hud-tr">System Active<br><span id="hud-date"></span></div>
+  <div class="hud-bl">Pre-Operational<br>Est. 2025</div>
+  <div class="hud-br">Intelligence &amp; Security<br>vantasystems.com.au</div>
+</div>
+
 <div class="hero">
   <div class="hero-left">
     <div>
@@ -634,6 +713,7 @@
     </div>
   </div>
 </div>
+</div><!-- /hero-wrap -->
 
 <footer>
   <div class="footer-top">
@@ -787,6 +867,148 @@
       else { btn.textContent = 'Try again'; btn.disabled = false; }
     } catch { btn.textContent = 'Try again'; btn.disabled = false; }
   }
+
+  // HUD date
+  const hudDate = document.getElementById('hud-date');
+  if (hudDate) {
+    const now = new Date();
+    hudDate.textContent = now.toISOString().slice(0,10).replace(/-/g,'.') + ' // ' + now.toTimeString().slice(0,5) + 'Z';
+  }
+
+  // ── Canvas animation ──
+  (function() {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, scanY = 0, time = 0;
+    const CELL = 56;
+    const targets = [];
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      scanY = 0;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Seeded PRNG for consistent noise
+    let seed = 42;
+    function rand() { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 0xffffffff; }
+
+    // Pre-bake noise dots
+    const noiseDots = Array.from({length: 180}, () => ({
+      x: Math.random(), y: Math.random(),
+      a: Math.random() * 0.06 + 0.01,
+      r: Math.random() * 1.2 + 0.3,
+      speed: (Math.random() - 0.5) * 0.00015
+    }));
+
+    function spawnTarget() {
+      if (targets.length >= 4) return;
+      const margin = 80;
+      targets.push({
+        x: margin + Math.random() * (W - margin * 2),
+        y: margin + Math.random() * (H - margin * 2),
+        alpha: 0, phase: 'in', hold: 0,
+        size: 14 + Math.random() * 8,
+        id: 'T-' + String(Math.floor(Math.random() * 900) + 100)
+      });
+    }
+
+    function drawGrid() {
+      ctx.strokeStyle = 'rgba(240,239,237,0.028)';
+      ctx.lineWidth = 1;
+      for (let x = (W % CELL) / 2; x < W; x += CELL) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = (H % CELL) / 2; y < H; y += CELL) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+    }
+
+    function drawScan() {
+      const g = ctx.createLinearGradient(0, scanY - 80, 0, scanY + 80);
+      g.addColorStop(0,   'rgba(240,239,237,0)');
+      g.addColorStop(0.5, 'rgba(240,239,237,0.025)');
+      g.addColorStop(1,   'rgba(240,239,237,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, scanY - 80, W, 160);
+      scanY += 0.4;
+      if (scanY > H + 80) scanY = -80;
+    }
+
+    function drawNoise() {
+      noiseDots.forEach(d => {
+        d.x = (d.x + d.speed + 1) % 1;
+        ctx.beginPath();
+        ctx.arc(d.x * W, d.y * H, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(240,239,237,${d.a})`;
+        ctx.fill();
+      });
+    }
+
+    function drawTarget(t) {
+      const s = t.size;
+      const gap = s * 0.32;
+      ctx.strokeStyle = `rgba(240,239,237,${t.alpha})`;
+      ctx.lineWidth = 0.7;
+
+      // Cross hair
+      ctx.beginPath();
+      ctx.moveTo(t.x - s, t.y); ctx.lineTo(t.x - gap, t.y);
+      ctx.moveTo(t.x + gap, t.y); ctx.lineTo(t.x + s, t.y);
+      ctx.moveTo(t.x, t.y - s); ctx.lineTo(t.x, t.y - gap);
+      ctx.moveTo(t.x, t.y + gap); ctx.lineTo(t.x, t.y + s);
+      ctx.stroke();
+
+      // Corner brackets
+      const b = s * 0.9, bl = s * 0.35;
+      ctx.beginPath();
+      ctx.moveTo(t.x - b, t.y - b + bl); ctx.lineTo(t.x - b, t.y - b); ctx.lineTo(t.x - b + bl, t.y - b);
+      ctx.moveTo(t.x + b - bl, t.y - b); ctx.lineTo(t.x + b, t.y - b); ctx.lineTo(t.x + b, t.y - b + bl);
+      ctx.moveTo(t.x - b, t.y + b - bl); ctx.lineTo(t.x - b, t.y + b); ctx.lineTo(t.x - b + bl, t.y + b);
+      ctx.moveTo(t.x + b - bl, t.y + b); ctx.lineTo(t.x + b, t.y + b); ctx.lineTo(t.x + b, t.y + b - bl);
+      ctx.stroke();
+
+      // ID label
+      ctx.fillStyle = `rgba(240,239,237,${t.alpha * 0.6})`;
+      ctx.font = `600 7px Inter, monospace`;
+      ctx.fillText(t.id, t.x + s * 1.1, t.y - s * 0.85);
+    }
+
+    function updateTargets() {
+      if (Math.random() < 0.008) spawnTarget();
+      for (let i = targets.length - 1; i >= 0; i--) {
+        const t = targets[i];
+        if (t.phase === 'in') {
+          t.alpha += 0.018;
+          if (t.alpha >= 0.55) { t.alpha = 0.55; t.phase = 'hold'; }
+        } else if (t.phase === 'hold') {
+          t.hold++;
+          if (t.hold > 160) t.phase = 'out';
+        } else {
+          t.alpha -= 0.008;
+          if (t.alpha <= 0) targets.splice(i, 1);
+        }
+        if (targets[i]) drawTarget(t);
+      }
+    }
+
+    function frame() {
+      // Fade trail
+      ctx.fillStyle = 'rgba(10,10,10,0.22)';
+      ctx.fillRect(0, 0, W, H);
+
+      drawGrid();
+      drawScan();
+      drawNoise();
+      updateTargets();
+
+      time++;
+      requestAnimationFrame(frame);
+    }
+    frame();
+  })();
 
   // Page transitions
   document.querySelectorAll('.nav-transition').forEach(link => {
