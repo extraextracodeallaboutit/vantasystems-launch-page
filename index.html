@@ -236,11 +236,14 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-      opacity: 0;
       pointer-events: none;
-      will-change: opacity;
+      will-change: transform;
     }
     .scroll-slide.is-active { pointer-events: all; }
+    /* All animatable children start hidden — JS drives them */
+    .scroll-slide [data-a] {
+      will-change: transform, opacity, letter-spacing;
+    }
 
     .hero {
       position: relative;
@@ -253,14 +256,33 @@
     /* ── Pin scroll editorial slides ── */
     .slide-panel {
       position: absolute;
-      inset: 0 50% 0 0;
+      inset: 0 38% 0 0;
       padding: 56px 48px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      overflow: hidden;
     }
+
+    /* Huge faint index number behind the panel content */
+    .slide-bg-num {
+      position: absolute;
+      right: -0.05em;
+      bottom: -0.12em;
+      font-size: clamp(160px, 22vw, 320px);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,239,237,0.06);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .slide-panel > * { position: relative; z-index: 1; }
 
     .slide-kicker {
       font-size: 9px;
@@ -272,9 +294,9 @@
     }
 
     .slide-heading {
-      font-size: clamp(44px, 5.5vw, 86px);
+      font-size: clamp(52px, 6.5vw, 104px);
       font-weight: 300;
-      line-height: 1.02;
+      line-height: 1.0;
       letter-spacing: -0.025em;
       color: var(--white);
       margin-bottom: 32px;
@@ -811,7 +833,7 @@
 <div class="hero">
   <div class="hero-left">
     <div>
-      <div class="hero-tag">
+      <div class="hero-tag" data-a="0">
         <div class="tag-status">
           <span class="tag-dot"></span>
           Pre-Operational
@@ -819,13 +841,13 @@
         <div class="tag-meta">Intelligence &amp; Security</div>
         <div class="tag-meta" style="border-left:none;">Adelaide, AU · Est. 2025</div>
       </div>
-      <h1>Building<br>autonomous<br><span>futures.</span></h1>
-      <p class="hero-desc">
+      <h1 data-a="1">Building<br>autonomous<br><span>futures.</span></h1>
+      <p class="hero-desc" data-a="2">
         A next-generation intelligence and security toolbox.
         Built for environments that demand precision, speed, and absolute discretion.
       </p>
     </div>
-    <div>
+    <div data-a="3">
       <div class="section-label">Estimated launch</div>
       <div class="countdown">
         <div class="cd-unit">
@@ -848,7 +870,7 @@
     </div>
   </div>
 
-  <div class="hero-right">
+  <div class="hero-right" data-a="4">
     <div class="section-label">Careers</div>
     <div class="job-card">
       <div class="job-title">General Application</div>
@@ -871,16 +893,17 @@
 <!-- Slide 1: Intelligence Layer -->
 <div class="scroll-slide" data-index="1">
   <div class="slide-panel">
+    <div class="slide-bg-num">01</div>
     <div>
-      <div class="slide-kicker">01 — Intelligence Layer</div>
-      <h2 class="slide-heading">Analysis at<br>machine<br><em>speed.</em></h2>
-      <p class="slide-body">Real-time signal collection, pattern recognition, and autonomous decision support. Built for environments where reaction time determines outcomes.</p>
+      <div class="slide-kicker" data-a="0">01 — Intelligence Layer</div>
+      <h2 class="slide-heading" data-a="1">Threat analysis.<br>Machine speed.<br><em>Zero delay.</em></h2>
+      <p class="slide-body" data-a="2">Real-time signal collection, pattern recognition, and autonomous decision support. Built for environments where reaction time determines outcomes.</p>
     </div>
     <div class="slide-specs">
-      <div class="spec-row"><span class="spec-key">Latency</span><span class="spec-line"></span><span class="spec-val">Sub-millisecond</span></div>
-      <div class="spec-row"><span class="spec-key">Fusion</span><span class="spec-line"></span><span class="spec-val">Multi-domain signals</span></div>
-      <div class="spec-row"><span class="spec-key">Classification</span><span class="spec-line"></span><span class="spec-val">AI-driven, zero-delay</span></div>
-      <div class="spec-row"><span class="spec-key">Deployment</span><span class="spec-line"></span><span class="spec-val">On-premise / air-gapped</span></div>
+      <div class="spec-row" data-a="3"><span class="spec-key">Latency</span><span class="spec-line"></span><span class="spec-val">Sub-millisecond</span></div>
+      <div class="spec-row" data-a="4"><span class="spec-key">Fusion</span><span class="spec-line"></span><span class="spec-val">Multi-domain signals</span></div>
+      <div class="spec-row" data-a="5"><span class="spec-key">Classification</span><span class="spec-line"></span><span class="spec-val">AI-driven, zero-delay</span></div>
+      <div class="spec-row" data-a="6"><span class="spec-key">Deployment</span><span class="spec-line"></span><span class="spec-val">On-premise / air-gapped</span></div>
     </div>
   </div>
 </div><!-- /slide-1 -->
@@ -888,14 +911,15 @@
 <!-- Slide 2: Launch -->
 <div class="scroll-slide" data-index="2">
   <div class="slide-panel">
+    <div class="slide-bg-num">02</div>
     <div>
-      <div class="slide-kicker">02 — Systems Online</div>
-      <h2 class="slide-heading">01 Aug<br>2026.<br><em>Adelaide.</em></h2>
-      <p class="slide-body">Vanta Systems enters active operations. Intelligence and security tools built for the next generation. Be first in line.</p>
+      <div class="slide-kicker" data-a="0">02 — Systems Online</div>
+      <h2 class="slide-heading" data-a="1">01 Aug<br>2026.<br><em>Adelaide.</em></h2>
+      <p class="slide-body" data-a="2">Vanta Systems enters active operations. Intelligence and security tools built for the next generation. Be first in line.</p>
     </div>
     <div>
-      <div class="slide-subscribe-label">Join the waitlist</div>
-      <form class="slide-subscribe-row" onsubmit="submitSubscribe(event)">
+      <div class="slide-subscribe-label" data-a="3">Join the waitlist</div>
+      <form class="slide-subscribe-row" data-a="4" onsubmit="submitSubscribe(event)">
         <input type="email" name="email" placeholder="your@email.com" required />
         <button type="submit">Notify Me</button>
       </form>
@@ -1216,21 +1240,47 @@
     const pips = document.querySelectorAll('.scroll-pip');
     const N = slides.length;
 
+    // Pre-collect per-slide animatables sorted by data-a index
+    const slideEls = Array.from(slides).map(s =>
+      Array.from(s.querySelectorAll('[data-a]')).sort((a,b) => +a.dataset.a - +b.dataset.a)
+    );
+
     function update() {
       const rect = wrap.getBoundingClientRect();
       const NAV = 72;
       const scrolled = NAV - rect.top;
       const total = wrap.offsetHeight - (window.innerHeight - NAV);
       const progress = Math.max(0, Math.min(1, scrolled / total));
-      const slideFloat = progress * (N - 1);
+      const sf = progress * (N - 1);
 
       slides.forEach((slide, i) => {
-        const opacity = Math.max(0, 1 - Math.abs(slideFloat - i));
-        slide.style.opacity = opacity;
-        slide.classList.toggle('is-active', opacity > 0.5);
+        const p = sf - i; // -1=below viewport, 0=active, +1=above viewport
+
+        // Slide container glides: enters from below, exits to top — no overlap
+        slide.style.transform = `translateY(${-p * 80}px)`;
+        slide.classList.toggle('is-active', Math.abs(p) < 0.5);
+        slide.style.pointerEvents = Math.abs(p) < 0.65 ? 'all' : 'none';
+
+        // Per-element stagger: each element has a slightly offset easing point
+        slideEls[i].forEach((el, j) => {
+          const stagger = j * 0.055;
+          // Leaving: later elements hang back. Entering: early elements arrive first.
+          const ep = p > 0 ? p + stagger : p - stagger;
+          const opacity = Math.max(0, 1 - Math.abs(ep) * 1.8);
+          const eTY = -ep * 28; // elements drift opposite to container = parallax depth
+
+          el.style.opacity = opacity;
+          el.style.transform = `translateY(${eTY}px)`;
+
+          // Headings: letter-spacing springs wide → tight as they land
+          if (el.matches('h1, .slide-heading')) {
+            const spread = Math.max(0, Math.abs(ep) - 0.05) * 0.14;
+            el.style.letterSpacing = spread > 0.004 ? `${spread}em` : '';
+          }
+        });
       });
 
-      const active = Math.round(slideFloat);
+      const active = Math.round(sf);
       pips.forEach((pip, i) => pip.classList.toggle('active', i === active));
     }
 

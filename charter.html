@@ -441,6 +441,26 @@
       .footer-col { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 24px; }
       .footer-bottom { padding: 16px 24px; flex-direction: column; gap: 6px; align-items: flex-start; }
     }
+
+    /* ── Scroll-reveal system ── */
+    .r {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  letter-spacing 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* Titles start wide and spring tight */
+    .r-title {
+      letter-spacing: 0.08em !important;
+    }
+    .r.io-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .r-title.io-in {
+      letter-spacing: -0.02em !important;
+    }
   </style>
 </head>
 <body>
@@ -465,37 +485,37 @@
   <!-- Hero -->
   <div class="charter-hero">
     <div class="charter-hero-left">
-      <div class="charter-kicker">Vanta Systems — Company Charter</div>
-      <h1 class="charter-title">Building<br>Autonomous<br><span>Futures.</span></h1>
+      <div class="charter-kicker r">Vanta Systems — Company Charter</div>
+      <h1 class="charter-title r r-title">Building<br>Autonomous<br><span>Futures.</span></h1>
     </div>
     <div class="charter-hero-right">
       <div class="charter-quote-wrap">
         <div class="charter-quote">
-          <div class="charter-quote-text">
+          <div class="charter-quote-text r">
             Technology should solve real problems.<br>
             Not create the appearance of progress —<br>
             but build systems that actually work.
           </div>
-          <div class="charter-quote-attr">Foundation Principle — Vanta Systems, 2025</div>
+          <div class="charter-quote-attr r">Foundation Principle — Vanta Systems, 2025</div>
         </div>
       </div>
-      <div class="charter-byline">Est. 2025 · Adelaide, Australia · Intelligence & Security</div>
+      <div class="charter-byline r">Est. 2025 · Adelaide, Australia · Intelligence & Security</div>
     </div>
   </div>
 
   <!-- Opening -->
   <div class="opening">
     <div class="opening-body">
-      <p>We live in a world where technology is advancing faster than ever before. Artificial intelligence, automation, robotics and software are reshaping industries, economies and daily life. The organisations and individuals who adapt will gain an advantage. Those who do not risk being left behind.</p>
-      <p>That is why we exist.</p>
+      <p class="r">We live in a world where technology is advancing faster than ever before. Artificial intelligence, automation, robotics and software are reshaping industries, economies and daily life. The organisations and individuals who adapt will gain an advantage. Those who do not risk being left behind.</p>
+      <p class="r">That is why we exist.</p>
     </div>
   </div>
 
   <!-- Section 01 — Why We Exist -->
   <div class="charter-section">
     <div class="section-meta">
-      <div class="section-num">01 — Purpose</div>
-      <h2 class="section-title">Why We<br><span>Exist.</span></h2>
+      <div class="section-num r">01 — Purpose</div>
+      <h2 class="section-title r r-title">Why We<br><span>Exist.</span></h2>
     </div>
     <div class="section-content">
       <!-- Schematic: Payload trajectory -->
@@ -576,9 +596,9 @@
         </svg>
       </div>
       <div class="section-body">
-        <p>Vanta Systems was founded to help turn ideas into capability. We believe technology should not be reserved for large corporations with endless resources. It should be accessible, practical and focused on delivering real outcomes.</p>
-        <p>Our mission is to design and develop systems that improve the way people work, create and operate. Whether through software, automation, artificial intelligence or emerging technologies, our focus remains the same. Build solutions that make a measurable difference.</p>
-        <p>A key fact that drives our thinking is that a significant portion of repetitive workplace tasks can now be automated through modern technology. This creates an opportunity to reduce wasted time, increase productivity and allow people to focus on higher value work.</p>
+        <p class="r">Vanta Systems was founded to help turn ideas into capability. We believe technology should not be reserved for large corporations with endless resources. It should be accessible, practical and focused on delivering real outcomes.</p>
+        <p class="r">Our mission is to design and develop systems that improve the way people work, create and operate. Whether through software, automation, artificial intelligence or emerging technologies, our focus remains the same. Build solutions that make a measurable difference.</p>
+        <p class="r">A key fact that drives our thinking is that a significant portion of repetitive workplace tasks can now be automated through modern technology. This creates an opportunity to reduce wasted time, increase productivity and allow people to focus on higher value work.</p>
       </div>
     </div>
   </div>
@@ -586,8 +606,8 @@
   <!-- Section 02 — What We Build -->
   <div class="charter-section">
     <div class="section-meta">
-      <div class="section-num">02 — Approach</div>
-      <h2 class="section-title">What We<br><span>Build.</span></h2>
+      <div class="section-num r">02 — Approach</div>
+      <h2 class="section-title r r-title">What We<br><span>Build.</span></h2>
     </div>
     <div class="section-content">
       <!-- Schematic: SIGINT neural sphere -->
@@ -659,8 +679,8 @@
         </svg>
       </div>
       <div class="section-body">
-        <p>Vanta Systems develops integrated software across intelligence, cybersecurity, artificial intelligence, and automation. Our mission is to consolidate the fragmented security ecosystem by providing a unified platform for OSINT, penetration testing, digital investigations, and operational workflows.</p>
-        <p>We are not interested in building technology for attention. We are interested in building technology that creates capability. Systems that solve problems. Systems that save time. Systems that scale. Systems that help people achieve more.</p>
+        <p class="r">Vanta Systems develops integrated software across intelligence, cybersecurity, artificial intelligence, and automation. Our mission is to consolidate the fragmented security ecosystem by providing a unified platform for OSINT, penetration testing, digital investigations, and operational workflows.</p>
+        <p class="r">We are not interested in building technology for attention. We are interested in building technology that creates capability. Systems that solve problems. Systems that save time. Systems that scale. Systems that help people achieve more.</p>
       </div>
     </div>
   </div>
@@ -668,8 +688,8 @@
   <!-- Section 03 — How We Think -->
   <div class="charter-section">
     <div class="section-meta">
-      <div class="section-num">03 — Values</div>
-      <h2 class="section-title">How We<br><span>Think.</span></h2>
+      <div class="section-num r">03 — Values</div>
+      <h2 class="section-title r r-title">How We<br><span>Think.</span></h2>
     </div>
     <div class="section-content">
       <!-- Schematic: Ground radar -->
@@ -731,9 +751,9 @@
         </svg>
       </div>
       <div class="section-body">
-        <p>We value curiosity, creativity and practical thinking. We challenge assumptions and look for better ways to solve problems. We understand that technology is never finished and that every solution can be refined.</p>
-        <p>We believe innovation comes from action. Great ideas mean little without execution. Progress is made by those willing to build, test, learn and improve.</p>
-        <p>Our vision extends beyond software alone. We see a future where intelligent systems, automation and emerging technologies work together to improve industries, strengthen organisations and unlock new possibilities.</p>
+        <p class="r">We value curiosity, creativity and practical thinking. We challenge assumptions and look for better ways to solve problems. We understand that technology is never finished and that every solution can be refined.</p>
+        <p class="r">We believe innovation comes from action. Great ideas mean little without execution. Progress is made by those willing to build, test, learn and improve.</p>
+        <p class="r">Our vision extends beyond software alone. We see a future where intelligent systems, automation and emerging technologies work together to improve industries, strengthen organisations and unlock new possibilities.</p>
       </div>
     </div>
   </div>
@@ -742,13 +762,13 @@
   <div class="charter-final">
     <div></div>
     <div>
-      <p class="final-question">Everything we build is guided<br>by a simple question.</p>
-      <p class="final-answer">Will this create<br>meaningful value?</p>
+      <p class="final-question r">Everything we build is guided<br>by a simple question.</p>
+      <p class="final-answer r r-title">Will this create<br>meaningful value?</p>
       <div class="final-close">
-        <p>If the answer is yes, we will find a way to build it.</p>
-        <p>Because technology should do more than exist. It should create capability. That is why Vanta Systems exists.</p>
+        <p class="r">If the answer is yes, we will find a way to build it.</p>
+        <p class="r">Because technology should do more than exist. It should create capability. That is why Vanta Systems exists.</p>
       </div>
-      <a href="mailto:engineering@vantasystems.com.au" class="final-contact">Get in touch</a>
+      <a href="mailto:engineering@vantasystems.com.au" class="final-contact r">Get in touch</a>
     </div>
   </div>
 
@@ -807,17 +827,38 @@
 </footer>
 
 <script>
-  // Scroll-triggered schematics
+  // ── Scroll-triggered schematics ──
   const schematics = document.querySelectorAll('.schematic');
-  const observer = new IntersectionObserver((entries) => {
+  const schObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        observer.unobserve(e.target);
+        schObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.2 });
-  schematics.forEach(s => observer.observe(s));
+  }, { threshold: 0.15 });
+  schematics.forEach(s => schObs.observe(s));
+
+  // ── Staggered scroll-reveal for .r elements ──
+  // Observe each direct container that holds .r children
+  const revealRoots = document.querySelectorAll(
+    '.charter-hero-left, .charter-hero-right, .opening-body, ' +
+    '.section-meta, .section-body, .charter-final > div:last-child'
+  );
+
+  const revObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const els = Array.from(e.target.querySelectorAll('.r'));
+      els.forEach((el, i) => {
+        el.style.transitionDelay = `${i * 90}ms`;
+        el.classList.add('io-in');
+      });
+      revObs.unobserve(e.target);
+    });
+  }, { threshold: 0.12 });
+
+  revealRoots.forEach(r => revObs.observe(r));
 
   // Page transitions
   document.querySelectorAll('.nav-transition').forEach(link => {
